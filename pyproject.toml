@@ -1,0 +1,45 @@
+[project]
+name = "feedly-client"
+version = "0.1.0"
+description = "Feedly triage CLI for LLM agents: read unread articles, mark uninteresting ones as read, log every verdict"
+readme = "README.md"
+authors = [
+    { name = "Ilya Chichak", email = "ilyachch@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "httpx>=0.28",
+    "platformdirs>=4.3",
+    "pydantic>=2.10",
+    "python-dotenv>=1.0",
+    "rich>=13.9",
+    "typer>=0.15",
+]
+
+[project.scripts]
+feedly = "feedly_client.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "respx>=0.22",
+    "ruff>=0.9",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]

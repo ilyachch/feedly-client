@@ -1,0 +1,28 @@
+[tools]
+python = "3.13"
+uv = "latest"
+
+[tasks.sync]
+description = "Install dependencies into .venv"
+run = "uv sync"
+
+[tasks.test]
+description = "Run the test suite"
+run = "uv run pytest"
+
+[tasks.lint]
+description = "Lint with ruff"
+run = ["uv run ruff check .", "uv run ruff format --check ."]
+
+[tasks.fmt]
+description = "Format with ruff"
+run = ["uv run ruff format .", "uv run ruff check --fix ."]
+
+[tasks.link]
+description = "Symlink the project skill and prompt template into the project-local .pi directory"
+run = """
+mkdir -p .pi/skills .pi/prompts
+ln -sfn ../../skills/feedly-triage .pi/skills/feedly-triage
+ln -sfn ../../prompts/feedly-triage.md .pi/prompts/feedly-triage.md
+echo "linked .pi/skills/feedly-triage and .pi/prompts/feedly-triage.md"
+"""
